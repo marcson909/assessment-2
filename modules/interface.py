@@ -151,11 +151,16 @@ Enter the number associated with the menu item to proceed.
                     else: 
                         for i, inventory in enumerate(self.all_inventory):
                             if selection == i+1:
-                                rental_list.append(inventory.title)
-                                customer.current_video_rentals = "/".join(rental_list)
-                                print(customer.current_video_rentals)
-                                new_copy_count = int(inventory.copies_available) - 1
-                                inventory.copies_available = new_copy_count
+                                if rental_list == ['']:
+                                    rental_list.append(inventory.title)
+                                    customer.current_video_rentals = "".join(rental_list)
+                                    new_copy_count = int(inventory.copies_available) - 1
+                                    inventory.copies_available = new_copy_count
+                                else:
+                                    rental_list.append(inventory.title)
+                                    customer.current_video_rentals = "/".join(rental_list)
+                                    new_copy_count = int(inventory.copies_available) - 1
+                                    inventory.copies_available = new_copy_count
                         print("Video rental successful")
                         self.save_customers()
                         self.save_inventory()
